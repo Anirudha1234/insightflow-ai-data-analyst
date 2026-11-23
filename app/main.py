@@ -10,18 +10,27 @@ from fastapi.responses import FileResponse
 from app.agents.graph import analyst_graph
 from app.api.schemas import AnalyzeRequest, AnalyzeResponse
 
+import os
+
 app = FastAPI(
     title="InsightFlow AI Data Analyst",
     description="AI-powered natural-language data analysis API",
     version="1.0.0",
 )
 
+# CORS configuration
+allowed_origins = [
+    origin.strip()
+    for origin in os.getenv(
+        "CORS_ORIGINS",
+        "http://localhost:5173,http://127.0.0.1:5173",
+    ).split(",")
+    if origin.strip()
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
