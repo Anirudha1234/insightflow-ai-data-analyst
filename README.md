@@ -1,8 +1,15 @@
 # InsightFlow — AI Data Analyst Agent
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black?logo=vercel)](https://insightflow-ai-data-analyst.vercel.app/)
+
+**Live application:** https://insightflow-ai-data-analyst.vercel.app/
+
+
 **Ask questions about your business data in natural language and get SQL-powered answers, business insights, calculations, and interactive charts.**
 
-InsightFlow is an AI-powered data analyst application that converts natural-language questions into SQL queries, executes them against a PostgreSQL database, analyzes the results, and generates business insights using Google Gemini and LangGraph.
+InsightFlow is a deployed, full-stack AI data analyst application that converts natural-language questions into SQL queries, executes them against a PostgreSQL database, analyzes the results, and generates business insights using Google Gemini and LangGraph.
+
+**Try it:** Open the [live dashboard](https://insightflow-ai-data-analyst.vercel.app/), enter a business question, and review the generated SQL, result table, calculations, insights, and chart when applicable. The first request after inactivity may take longer because the free backend service can spin down.
 
 ## Features
 
@@ -18,6 +25,25 @@ InsightFlow is an AI-powered data analyst application that converts natural-lang
 - **React Dashboard:** Interactive interface with Markdown-rendered insights, query results, and formatted SQL.
 
 ## Architecture
+
+### Production deployment
+
+```text
+User's browser
+      |
+      v
+React + Vite dashboard (Vercel)
+      |
+      | HTTPS / REST API
+      v
+FastAPI + LangGraph backend (Render)
+      |             |
+      v             v
+Google Gemini   Neon PostgreSQL
+```
+
+The frontend is deployed on **Vercel**, the containerized FastAPI backend is deployed on **Render**, and the PostgreSQL database is hosted on **Neon**. The backend connects to Neon using environment-based credentials; analytical SQL runs through a restricted read-only database role.
+
 
 ```text
               React + Vite
@@ -163,7 +189,7 @@ The project includes SQL scripts for creating the database schema and populating
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/insightflow-ai-data-analyst.git
+git clone https://github.com/Anirudha1234/insightflow-ai-data-analyst.git
 
 cd insightflow-ai-data-analyst
 ```
@@ -353,10 +379,32 @@ These controls reduce risk but should not be considered a substitute for a full 
 - Profit metrics require actual cost information.
 - The application currently supports the configured database schema and analytical workflow.
 
+## Deployment
+
+| Component | Platform | Deployment |
+|---|---|---|
+| Frontend | Vercel | [Live dashboard](https://insightflow-ai-data-analyst.vercel.app/) |
+| Backend | Render | Docker-based FastAPI service |
+| Database | Neon | Hosted PostgreSQL |
+
+The backend uses environment variables for Gemini credentials, PostgreSQL connection details, read-only database credentials, and allowed frontend origins (`CORS_ORIGINS`). Secrets are configured in the hosting provider dashboards and must never be committed to the repository.
+
+For a new deployment, configure the frontend's `VITE_API_URL` with the backend URL and configure the backend's `CORS_ORIGINS` with the deployed frontend origin.
+
+## Screenshots
+
+Screenshots of the live dashboard, analysis results, generated SQL, and visualizations can be added here. Save captured images in a repository folder such as `docs/screenshots/` and embed them using relative Markdown image paths, for example:
+
+```markdown
+![InsightFlow dashboard](docs/screenshots/dashboard.png)
+```
+
 ## Future Improvements
 
-- Deploy the frontend and backend to cloud hosting.
-- Integrate hosted PostgreSQL.
+- Add user authentication and role-based access.
+- Add downloadable reports.
+- Improve chart and dashboard customization.
+- Add automated evaluation of generated SQL and AI insights.
 - Add user authentication and role-based access.
 - Add downloadable reports.
 - Improve chart and dashboard customization.
