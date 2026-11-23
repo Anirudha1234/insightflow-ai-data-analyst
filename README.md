@@ -393,11 +393,25 @@ For a new deployment, configure the frontend's `VITE_API_URL` with the backend U
 
 ## Screenshots
 
-Screenshots of the live dashboard, analysis results, generated SQL, and visualizations can be added here. Save captured images in a repository folder such as `docs/screenshots/` and embed them using relative Markdown image paths, for example:
+### Dashboard
 
-```markdown
-![InsightFlow dashboard](docs/screenshots/dashboard.png)
-```
+![InsightFlow dashboard](docs/screenshots/Dashboard.png)
+
+### Business analysis
+
+![Business analysis overview](docs/screenshots/analysis1.png)
+
+![Business analysis details](docs/screenshots/analysis2.png)
+
+### Generated SQL and query results
+
+![Generated SQL](docs/screenshots/generated_sql.png)
+
+![Query results](docs/screenshots/query_result.png)
+
+### Generated visualization
+
+![Generated chart](docs/screenshots/generated_chart.png)
 
 ## Future Improvements
 
